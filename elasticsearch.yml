@@ -99,7 +99,8 @@ discovery.zen.ping.unicast.hosts: ["10.85.10.10:9300", "10.85.10.12:9300", "10.8
 #
 # discovery.zen.minimum_master_nodes: 3
 discovery.zen.minimum_master_nodes: 3
-discovery.zen.ping.timeout: 20s
+discovery.zen.ping.timeout: 30s
+discovery.zen.fd.ping_timeout: 30s
 #
 # For more information, see the documentation at:
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery.html>
