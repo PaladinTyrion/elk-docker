@@ -33,8 +33,8 @@ fi
 # The following variables can be overwritten in $DEFAULT
 
 # Run Elasticsearch as this user ID and group ID
-ES_USER=elasticsearch
-ES_GROUP=elasticsearch
+ES_USER=root
+ES_GROUP=root
 
 # Directory where the Elasticsearch binary distribution resides
 ES_HOME=
@@ -43,7 +43,7 @@ ES_HOME=
 #ES_JAVA_OPTS=
 
 # Maximum number of open files
-#MAX_OPEN_FILES=65536
+MAX_OPEN_FILES=65536
 
 # Maximum amount of locked memory
 #MAX_LOCKED_MEMORY=
@@ -58,7 +58,7 @@ DATA_DIR=/var/lib/$NAME
 CONF_DIR=/etc/$NAME
 
 # Maximum number of VMA (Virtual Memory Areas) a process can own
-#MAX_MAP_COUNT=262144
+MAX_MAP_COUNT=262144
 
 # Elasticsearch PID file directory
 PID_DIR="/var/run/elasticsearch"

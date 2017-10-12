@@ -16,6 +16,7 @@
 #
 # cluster.name: my-application
 #
+cluster.name: yzb-logging
 # ------------------------------------ Node ------------------------------------
 #
 # Use a descriptive name for the node:
@@ -26,6 +27,9 @@
 #
 # node.rack: r1
 #
+node.name: ${HOSTNAME}
+node.master: true
+node.data: true
 # ----------------------------------- Paths ------------------------------------
 #
 # Path to directory where to store the data (separate multiple locations by comma):
@@ -36,6 +40,8 @@
 #
 # path.logs: /path/to/logs
 #
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
 # ----------------------------------- Memory -----------------------------------
 #
 # Lock the memory on startup:
@@ -47,6 +53,8 @@
 #
 # Elasticsearch performs poorly when the system is swapping the memory.
 #
+bootstrap.memory_lock: true
+bootstrap.system_call_filter: true
 # ---------------------------------- Network -----------------------------------
 #
 # Set the bind adress to a specific IP (IPv4 or IPv6):
@@ -58,6 +66,10 @@ network.host: 0.0.0.0
 #
 # http.port: 9200
 #
+http.port: 9200
+transport.tcp.port: 9300
+transport.tcp.compress: true
+http.max_content_length: 100mb
 # For more information, see the documentation at:
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-network.html>
 #
@@ -67,6 +79,9 @@ network.host: 0.0.0.0
 #
 # gateway.recover_after_nodes: 3
 #
+gateway.recover_after_nodes: 3
+gateway.recover_after_time: 5m
+gateway.expected_nodes: 5
 # For more information, see the documentation at:
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html>
 #
@@ -79,9 +94,12 @@ network.host: 0.0.0.0
 #
 # discovery.zen.ping.unicast.hosts: ["host1", "host2"]
 #
+discovery.zen.ping.unicast.hosts: ["10.85.10.10:9300", "10.85.10.12:9300", "10.85.10.3:9300", "10.85.92.8:9300", "10.85.92.7:9300"]
 # Prevent the "split brain" by configuring the majority of nodes (total number of nodes / 2 + 1):
 #
 # discovery.zen.minimum_master_nodes: 3
+discovery.zen.minimum_master_nodes: 3
+discovery.zen.ping.timeout: 30s
 #
 # For more information, see the documentation at:
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery.html>
@@ -92,6 +110,27 @@ network.host: 0.0.0.0
 #
 # node.max_local_storage_nodes: 1
 #
+node.max_local_storage_nodes: 1
 # Require explicit names when deleting indices:
 #
 # action.destructive_requires_name: true
+action.destructive_requires_name: true
+
+#threadpool
+threadpool:
+    generic:
+        keep_alive: 2m
+    index:
+        size: 16
+        queue_size: 1000
+    warmer:
+        max: 8
+    search:
+        size: 16
+        queue_size: 1000
+    flush:
+        max: 5
+    listener:
+        size: 5
+    refresh:
+        max: 3

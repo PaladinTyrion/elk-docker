@@ -8,8 +8,6 @@
 # docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk <repo-user>/elk
 
 FROM phusion/baseimage
-MAINTAINER Sebastien Pujadas http://pujadas.net
-ENV REFRESHED_AT 2017-01-13
 
 
 ###############################################################################
@@ -48,6 +46,12 @@ ENV ES_HOME /opt/elasticsearch
 ENV ES_PACKAGE elasticsearch-${ES_VERSION}.tar.gz
 ENV ES_GID 991
 ENV ES_UID 991
+
+ENV ES_HEAP_SIZE 15g
+
+RUN mkdir -p /tmp/elasticsearch \
+ && mkdir -p /tmp/logstash \
+ && mkdir -p /tmp/kibana
 
 RUN mkdir ${ES_HOME} \
  && curl -O https://artifacts.elastic.co/downloads/elasticsearch/${ES_PACKAGE} \

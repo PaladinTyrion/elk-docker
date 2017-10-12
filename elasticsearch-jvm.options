@@ -19,8 +19,8 @@
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
 
--Xms2g
--Xmx2g
+-Xms15g
+-Xmx15g
 
 ################################################################
 ## Expert settings
@@ -67,6 +67,9 @@
 -Dlog4j.shutdownHookEnabled=false
 -Dlog4j2.disable.jmx=true
 -Dlog4j.skipJansi=true
+
+# tmpdir
+-Djava.io.tmpdir=/tmp/elasticsearch
 
 ## heap dumps
 
