@@ -44,8 +44,8 @@ ENV ELK_VERSION 5.6.2
 ENV ES_VERSION ${ELK_VERSION}
 ENV ES_HOME /opt/elasticsearch
 ENV ES_PACKAGE elasticsearch-${ES_VERSION}.tar.gz
-ENV ES_GID 991
-ENV ES_UID 991
+# ENV ES_GID 991
+# ENV ES_UID 991
 
 ENV ES_HEAP_SIZE 15g
 
@@ -57,10 +57,10 @@ RUN mkdir ${ES_HOME} \
  && curl -O https://artifacts.elastic.co/downloads/elasticsearch/${ES_PACKAGE} \
  && tar xzf ${ES_PACKAGE} -C ${ES_HOME} --strip-components=1 \
  && rm -f ${ES_PACKAGE} \
- && groupadd -r elasticsearch -g ${ES_GID} \
- && useradd -r -s /usr/sbin/nologin -M -c "Elasticsearch service user" -u ${ES_UID} -g elasticsearch elasticsearch \
+ # && groupadd -r elasticsearch -g ${ES_GID} \
+ # && useradd -r -s /usr/sbin/nologin -M -c "Elasticsearch service user" -u ${ES_UID} -g elasticsearch elasticsearch \
  && mkdir -p /var/log/elasticsearch /etc/elasticsearch /etc/elasticsearch/scripts /var/lib/elasticsearch \
- && chown -R elasticsearch:elasticsearch ${ES_HOME} /var/log/elasticsearch /var/lib/elasticsearch /etc/elasticsearch
+ && chown -R root:root ${ES_HOME} /var/log/elasticsearch /var/lib/elasticsearch /etc/elasticsearch
 
 ADD ./elasticsearch-init /etc/init.d/elasticsearch
 RUN sed -i -e 's#^ES_HOME=$#ES_HOME='$ES_HOME'#' /etc/init.d/elasticsearch \
@@ -72,17 +72,17 @@ RUN sed -i -e 's#^ES_HOME=$#ES_HOME='$ES_HOME'#' /etc/init.d/elasticsearch \
 ENV LOGSTASH_VERSION ${ELK_VERSION}
 ENV LOGSTASH_HOME /opt/logstash
 ENV LOGSTASH_PACKAGE logstash-${LOGSTASH_VERSION}.tar.gz
-ENV LOGSTASH_GID 992
-ENV LOGSTASH_UID 992
+# ENV LOGSTASH_GID 992
+# ENV LOGSTASH_UID 992
 
 RUN mkdir ${LOGSTASH_HOME} \
  && curl -O https://artifacts.elastic.co/downloads/logstash/${LOGSTASH_PACKAGE} \
  && tar xzf ${LOGSTASH_PACKAGE} -C ${LOGSTASH_HOME} --strip-components=1 \
  && rm -f ${LOGSTASH_PACKAGE} \
- && groupadd -r logstash -g ${LOGSTASH_GID} \
- && useradd -r -s /usr/sbin/nologin -d ${LOGSTASH_HOME} -c "Logstash service user" -u ${LOGSTASH_UID} -g logstash logstash \
+ # && groupadd -r logstash -g ${LOGSTASH_GID} \
+ # && useradd -r -s /usr/sbin/nologin -d ${LOGSTASH_HOME} -c "Logstash service user" -u ${LOGSTASH_UID} -g logstash logstash \
  && mkdir -p /var/log/logstash /etc/logstash/conf.d /var/lib/logstash \
- && chown -R logstash:logstash ${LOGSTASH_HOME} /var/log/logstash /etc/logstash /var/lib/logstash
+ && chown -R root:root ${LOGSTASH_HOME} /var/log/logstash /etc/logstash /var/lib/logstash
 
 ADD ./logstash-init /etc/init.d/logstash
 RUN sed -i -e 's#^LS_HOME=$#LS_HOME='$LOGSTASH_HOME'#' /etc/init.d/logstash \
@@ -94,17 +94,17 @@ RUN sed -i -e 's#^LS_HOME=$#LS_HOME='$LOGSTASH_HOME'#' /etc/init.d/logstash \
 ENV KIBANA_VERSION ${ELK_VERSION}
 ENV KIBANA_HOME /opt/kibana
 ENV KIBANA_PACKAGE kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz
-ENV KIBANA_GID 993
-ENV KIBANA_UID 993
+# ENV KIBANA_GID 993
+# ENV KIBANA_UID 993
 
 RUN mkdir ${KIBANA_HOME} \
  && curl -O https://artifacts.elastic.co/downloads/kibana/${KIBANA_PACKAGE} \
  && tar xzf ${KIBANA_PACKAGE} -C ${KIBANA_HOME} --strip-components=1 \
  && rm -f ${KIBANA_PACKAGE} \
- && groupadd -r kibana -g ${KIBANA_GID} \
- && useradd -r -s /usr/sbin/nologin -d ${KIBANA_HOME} -c "Kibana service user" -u ${KIBANA_UID} -g kibana kibana \
+ # && groupadd -r kibana -g ${KIBANA_GID} \
+ # && useradd -r -s /usr/sbin/nologin -d ${KIBANA_HOME} -c "Kibana service user" -u ${KIBANA_UID} -g kibana kibana \
  && mkdir -p /var/log/kibana \
- && chown -R kibana:kibana ${KIBANA_HOME} /var/log/kibana
+ && chown -R root:root ${KIBANA_HOME} /var/log/kibana
 
 ADD ./kibana-init /etc/init.d/kibana
 RUN sed -i -e 's#^KIBANA_HOME=$#KIBANA_HOME='$KIBANA_HOME'#' /etc/init.d/kibana \
@@ -160,7 +160,7 @@ ADD ./kibana.yml ${KIBANA_HOME}/config/kibana.yml
 ADD ./start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
-EXPOSE 5601 9200 9300 5044
+EXPOSE 5601 9200 9300 5044 9600
 VOLUME /var/lib/elasticsearch
 
 CMD [ "/usr/local/bin/start.sh" ]
