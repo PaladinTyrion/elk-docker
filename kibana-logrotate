@@ -1,6 +1,6 @@
 /var/log/kibana/kibana5.log {
     daily
-    rotate 7
+    rotate 5
     copytruncate
     compress
     delaycompress

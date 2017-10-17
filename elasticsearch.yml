@@ -27,7 +27,7 @@ cluster.name: yzb-logging
 #
 # node.rack: r1
 #
-node.name: ${HOSTNAME}
+node.name: ES_${HOSTNAME}
 node.master: true
 node.data: true
 # ----------------------------------- Paths ------------------------------------

@@ -81,8 +81,8 @@ RUN mkdir ${LOGSTASH_HOME} \
  && rm -f ${LOGSTASH_PACKAGE} \
  && groupadd -r logstash -g ${LOGSTASH_GID} \
  && useradd -r -s /usr/sbin/nologin -d ${LOGSTASH_HOME} -c "Logstash service user" -u ${LOGSTASH_UID} -g logstash logstash \
- && mkdir -p /var/log/logstash /etc/logstash/conf.d \
- && chown -R logstash:logstash ${LOGSTASH_HOME} /var/log/logstash /etc/logstash
+ && mkdir -p /var/log/logstash /etc/logstash/conf.d /var/lib/logstash \
+ && chown -R logstash:logstash ${LOGSTASH_HOME} /var/log/logstash /etc/logstash /var/lib/logstash
 
 ADD ./logstash-init /etc/init.d/logstash
 RUN sed -i -e 's#^LS_HOME=$#LS_HOME='$LOGSTASH_HOME'#' /etc/init.d/logstash \
@@ -126,20 +126,14 @@ RUN chmod -R +r /etc/elasticsearch
 
 ### configure Logstash
 
-# certs/keys for Beats and Lumberjack input
-RUN mkdir -p /etc/pki/tls/certs && mkdir /etc/pki/tls/private
-ADD ./logstash-beats.crt /etc/pki/tls/certs/logstash-beats.crt
-ADD ./logstash-beats.key /etc/pki/tls/private/logstash-beats.key
+ADD ./logstash.yml /opt/logstash/config/logstash.yml
+ADD ./logstash-jvm.options /opt/logstash/config/jvm.options
+RUN chmod -R +r /opt/logstash/config
 
 # filters
-ADD ./02-beats-input.conf /etc/logstash/conf.d/02-beats-input.conf
-ADD ./10-syslog.conf /etc/logstash/conf.d/10-syslog.conf
-ADD ./11-nginx.conf /etc/logstash/conf.d/11-nginx.conf
+ADD ./02-kafka-input.conf /etc/logstash/conf.d/02-kafka-input.conf
+ADD ./10-filter.conf /etc/logstash/conf.d/10-filter.conf
 ADD ./30-output.conf /etc/logstash/conf.d/30-output.conf
-
-# patterns
-ADD ./nginx.pattern ${LOGSTASH_HOME}/patterns/nginx
-RUN chown -R logstash:logstash ${LOGSTASH_HOME}/patterns
 
 # Fix permissions
 RUN chmod -R +r /etc/logstash
