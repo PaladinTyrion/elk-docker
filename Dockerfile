@@ -121,8 +121,7 @@ ADD ./elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 ADD ./elasticsearch-log4j2.properties /etc/elasticsearch/log4j2.properties
 ADD ./elasticsearch-jvm.options /etc/elasticsearch/jvm.options
 ADD ./elasticsearch-default /etc/default/elasticsearch
-RUN chmod -R +r /etc/elasticsearch \
-    chmod +x /etc/default/elasticsearch
+RUN chmod -R +r /etc/elasticsearch
 
 
 ### configure Logstash
