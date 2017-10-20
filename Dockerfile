@@ -43,6 +43,9 @@ RUN mkdir -p /tmp/elasticsearch && chown -R root:root /tmp/elasticsearch \
     && mkdir -p /tmp/logstash && chown -R root:root /tmp/logstash \
     && mkdir -p /tmp/kibana && chown -R root:root /tmp/kibana
 
+COPY ./limits.conf /etc/security/limits.conf \
+    && chmod -R +r /etc/security/limits.conf
+
 ### install Elasticsearch
 
 ENV ES_VERSION ${ELK_VERSION}
