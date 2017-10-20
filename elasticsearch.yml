@@ -99,7 +99,7 @@ discovery.zen.ping.unicast.hosts: ["10.85.10.10:9300", "10.85.10.12:9300", "10.8
 #
 # discovery.zen.minimum_master_nodes: 3
 discovery.zen.minimum_master_nodes: 3
-discovery.zen.ping.timeout: 30s
+discovery.zen.ping_timeout: 30s
 discovery.zen.fd.ping_timeout: 30s
 #
 # For more information, see the documentation at:
@@ -117,12 +117,12 @@ node.max_local_storage_nodes: 1
 # action.destructive_requires_name: true
 action.destructive_requires_name: true
 
-#threadpool
-threadpool:
+#thread_pool
+thread_pool:
     generic:
         keep_alive: 2m
     index:
-        size: 16
+        size: 4
         queue_size: 1000
     warmer:
         max: 8

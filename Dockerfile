@@ -1,5 +1,5 @@
 # Dockerfile for ELK stack
-# Elasticsearch, Logstash, Kibana 5.6.2
+# Elasticsearch, Logstash, Kibana 5.6.3
 
 # Build with:
 # docker build -t <repo-user>/elk .
@@ -37,7 +37,11 @@ RUN set -x \
  && set +x
 
 
-ENV ELK_VERSION 5.6.2
+ENV ELK_VERSION 5.6.3
+
+RUN mkdir -p /tmp/elasticsearch && chown -R root:root /tmp/elasticsearch \
+    && mkdir -p /tmp/logstash && chown -R root:root /tmp/logstash \
+    && mkdir -p /tmp/kibana && chown -R root:root /tmp/kibana
 
 ### install Elasticsearch
 
@@ -47,11 +51,7 @@ ENV ES_PACKAGE elasticsearch-${ES_VERSION}.tar.gz
 # ENV ES_GID 991
 # ENV ES_UID 991
 
-ENV ES_HEAP_SIZE 15g
-
-RUN mkdir -p /tmp/elasticsearch \
- && mkdir -p /tmp/logstash \
- && mkdir -p /tmp/kibana
+ENV ES_HEAP_SIZE 12g
 
 RUN mkdir ${ES_HOME} \
  && curl -O https://artifacts.elastic.co/downloads/elasticsearch/${ES_PACKAGE} \
@@ -108,7 +108,7 @@ RUN mkdir ${KIBANA_HOME} \
 
 ADD ./kibana-init /etc/init.d/kibana
 RUN sed -i -e 's#^KIBANA_HOME=$#KIBANA_HOME='$KIBANA_HOME'#' /etc/init.d/kibana \
- && chmod +x /etc/init.d/kibana
+    && chmod +x /etc/init.d/kibana
 
 
 ###############################################################################

@@ -40,7 +40,7 @@ ES_GROUP=root
 ES_HOME=
 
 # Additional Java OPTS
-#ES_JAVA_OPTS=
+ES_JAVA_OPTS="-Des.insecure.allow.root=true"
 
 # Maximum number of open files
 MAX_OPEN_FILES=65536
