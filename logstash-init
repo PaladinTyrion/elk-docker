@@ -27,8 +27,8 @@ fi
 name=logstash
 pidfile="/var/run/$name.pid"
 
-LS_USER=root
-LS_GROUP=root
+LS_USER=logstash
+LS_GROUP=logstash
 LS_HOME=
 LS_TMPDIR=/tmp/logstash
 LS_HEAP_SIZE="5g"

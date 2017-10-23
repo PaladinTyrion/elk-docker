@@ -33,14 +33,14 @@ fi
 # The following variables can be overwritten in $DEFAULT
 
 # Run Elasticsearch as this user ID and group ID
-ES_USER=root
-ES_GROUP=root
+ES_USER=elasticsearch
+ES_GROUP=elasticsearch
 
 # Directory where the Elasticsearch binary distribution resides
 ES_HOME=
 
 # Additional Java OPTS
-ES_JAVA_OPTS="-Des.insecure.allow.root=true"
+#ES_JAVA_OPTS="-Des.insecure.allow.root=true"
 
 # Maximum number of open files
 MAX_OPEN_FILES=65536
