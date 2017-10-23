@@ -39,8 +39,8 @@ RUN set -x \
 
 ENV ELK_VERSION 5.6.3
 
-ADD ./limits.conf /etc/security/limits.conf
-RUN chmod +r /etc/security/limits.conf
+# ADD ./limits.conf /etc/security/limits.conf
+# RUN chmod +r /etc/security/limits.conf
 
 ### install Elasticsearch
 
