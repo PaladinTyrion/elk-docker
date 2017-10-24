@@ -47,8 +47,8 @@ ENV ELK_VERSION 5.6.3
 ENV ES_VERSION ${ELK_VERSION}
 ENV ES_HOME /opt/elasticsearch
 ENV ES_PACKAGE elasticsearch-${ES_VERSION}.tar.gz
-ENV ES_GID 991
-ENV ES_UID 991
+ENV ES_GID 441
+ENV ES_UID 441
 
 ENV ES_HEAP_SIZE 12g
 
@@ -71,8 +71,8 @@ RUN sed -i -e 's#^ES_HOME=$#ES_HOME='$ES_HOME'#' /etc/init.d/elasticsearch \
 ENV LOGSTASH_VERSION ${ELK_VERSION}
 ENV LOGSTASH_HOME /opt/logstash
 ENV LOGSTASH_PACKAGE logstash-${LOGSTASH_VERSION}.tar.gz
-ENV LOGSTASH_GID 992
-ENV LOGSTASH_UID 992
+ENV LOGSTASH_GID 442
+ENV LOGSTASH_UID 442
 
 RUN mkdir ${LOGSTASH_HOME} \
  && curl -O https://artifacts.elastic.co/downloads/logstash/${LOGSTASH_PACKAGE} \
@@ -93,8 +93,8 @@ RUN sed -i -e 's#^LS_HOME=$#LS_HOME='$LOGSTASH_HOME'#' /etc/init.d/logstash \
 ENV KIBANA_VERSION ${ELK_VERSION}
 ENV KIBANA_HOME /opt/kibana
 ENV KIBANA_PACKAGE kibana-${KIBANA_VERSION}-linux-x86_64.tar.gz
-ENV KIBANA_GID 993
-ENV KIBANA_UID 993
+ENV KIBANA_GID 443
+ENV KIBANA_UID 443
 
 RUN mkdir ${KIBANA_HOME} \
  && curl -O https://artifacts.elastic.co/downloads/kibana/${KIBANA_PACKAGE} \
