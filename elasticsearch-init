@@ -43,7 +43,7 @@ ES_HOME=
 #ES_JAVA_OPTS="-Des.insecure.allow.root=true"
 
 # Maximum number of open files
-MAX_OPEN_FILES=65536
+#MAX_OPEN_FILES=65536
 
 # Maximum amount of locked memory
 #MAX_LOCKED_MEMORY=

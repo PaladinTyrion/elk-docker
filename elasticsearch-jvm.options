@@ -19,8 +19,8 @@
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
 
--Xms12g
--Xmx12g
+-Xms6g
+-Xmx6g
 
 ################################################################
 ## Expert settings
@@ -49,6 +49,9 @@
 
 # force the server VM
 -server
+
+# set zone
+-Duser.timezone=GMT+8
 
 # set to headless, just in case
 -Djava.awt.headless=true

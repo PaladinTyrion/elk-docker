@@ -20,6 +20,7 @@ ENV GOSU_VERSION 1.8
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN set -x \
+ && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
  && apt-get update -qq \
  && apt-get install -qqy --no-install-recommends ca-certificates curl \
  && rm -rf /var/lib/apt/lists/* \
@@ -50,7 +51,7 @@ ENV ES_PACKAGE elasticsearch-${ES_VERSION}.tar.gz
 ENV ES_GID 441
 ENV ES_UID 441
 
-ENV ES_HEAP_SIZE 12g
+ENV ES_HEAP_SIZE 6g
 
 RUN mkdir ${ES_HOME} \
  && curl -O https://artifacts.elastic.co/downloads/elasticsearch/${ES_PACKAGE} \
