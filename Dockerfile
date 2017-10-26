@@ -20,7 +20,7 @@ ENV GOSU_VERSION 1.8
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN set -x \
- && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+ # && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
  && apt-get update -qq \
  && apt-get install -qqy --no-install-recommends ca-certificates curl \
  && rm -rf /var/lib/apt/lists/* \
