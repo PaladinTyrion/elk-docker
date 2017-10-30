@@ -121,11 +121,11 @@ else
 
   # wait for cluster to respond before getting its name
   counter=0
-  while [ -z "$CLUSTER_NAME" -a $counter -lt 30 ]; do
+  while [ -z "$CLUSTER_NAME" -a $counter -lt 45 ]; do
     sleep 1
     ((counter++))
     CLUSTER_NAME=$(curl localhost:9200/_cat/health?h=cluster 2> /dev/null | tr -d '[:space:]')
-    echo "Waiting for Elasticsearch cluster to respond ($counter/30)"
+    echo "Waiting for Elasticsearch cluster to respond ($counter/45)"
   done
   if [ -z "$CLUSTER_NAME" ]; then
     echo "Couln't get name of cluster. Exiting."
