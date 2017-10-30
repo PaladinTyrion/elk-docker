@@ -53,7 +53,7 @@ path.logs: /var/log/elasticsearch
 #
 # Elasticsearch performs poorly when the system is swapping the memory.
 #
-#bootstrap.memory_lock: true
+bootstrap.memory_lock: true
 bootstrap.system_call_filter: true
 # ---------------------------------- Network -----------------------------------
 #

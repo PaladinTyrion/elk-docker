@@ -22,7 +22,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN set -x \
  && apt-get update -qq \
  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends tzdata \
- && ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
  && dpkg-reconfigure -f noninteractive tzdata \
  && apt-get install -qqy --no-install-recommends ca-certificates curl \
  && rm -rf /var/lib/apt/lists/* \
@@ -36,6 +35,7 @@ RUN set -x \
  && gosu nobody true \
  && apt-get update -qq \
  && apt-get install -qqy openjdk-8-jdk \
+ && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
  && apt-get clean \
  && set +x
 
