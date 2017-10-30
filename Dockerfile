@@ -135,8 +135,9 @@ ADD ./logstash-jvm.options /opt/logstash/config/jvm.options
 RUN chmod -R +r /opt/logstash/config
 
 # filters
-ADD ./02-kafka-input.conf /etc/logstash/conf.d/02-kafka-input.conf
+ADD ./00-kafka-input.conf /etc/logstash/conf.d/00-kafka-input.conf
 ADD ./10-filter.conf /etc/logstash/conf.d/10-filter.conf
+ADD ./12-filter.conf /etc/logstash/conf.d/12-filter.conf
 ADD ./30-output.conf /etc/logstash/conf.d/30-output.conf
 
 # Fix permissions
