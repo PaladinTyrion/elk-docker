@@ -20,8 +20,10 @@ ENV GOSU_VERSION 1.8
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN set -x \
- # && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
  && apt-get update -qq \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends tzdata \
+ && ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+ && dpkg-reconfigure -f noninteractive tzdata \
  && apt-get install -qqy --no-install-recommends ca-certificates curl \
  && rm -rf /var/lib/apt/lists/* \
  && curl -L -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
@@ -50,8 +52,6 @@ ENV ES_HOME /opt/elasticsearch
 ENV ES_PACKAGE elasticsearch-${ES_VERSION}.tar.gz
 ENV ES_GID 441
 ENV ES_UID 441
-
-ENV ES_HEAP_SIZE 6g
 
 RUN mkdir ${ES_HOME} \
  && curl -O https://artifacts.elastic.co/downloads/elasticsearch/${ES_PACKAGE} \
