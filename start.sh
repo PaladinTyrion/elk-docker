@@ -133,7 +133,7 @@ else
     cat /var/log/elasticsearch/elasticsearch.log
     exit 1
   fi
-  OUTPUT_LOGFILES+="/var/log/elasticsearch/${CLUSTER_NAME}.log "
+  # OUTPUT_LOGFILES+="/var/log/elasticsearch/${CLUSTER_NAME}.log "
 fi
 
 
@@ -160,7 +160,7 @@ else
   fi
 
   service logstash start
-  OUTPUT_LOGFILES+="/var/log/logstash/logstash-plain.log "
+  # OUTPUT_LOGFILES+="/var/log/logstash/logstash-plain.log "
 fi
 
 
