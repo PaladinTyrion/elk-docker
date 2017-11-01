@@ -160,11 +160,37 @@ ADD ./kibana.yml ${KIBANA_HOME}/config/kibana.yml
 
 
 ###############################################################################
-#                                   START
+#                               PREPARE START
 ###############################################################################
 
 ADD ./start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
+
+
+###############################################################################
+#                                XPACK INSTALLATION
+###############################################################################
+
+# ENV XPACK_VERSION 5.6.3
+# ENV XPACK_PACKAGE x-pack-${XPACK_VERSION}.zip
+#
+# WORKDIR /tmp
+# RUN curl -O https://artifacts.elastic.co/downloads/packs/x-pack/${XPACK_PACKAGE} \
+#  && gosu elasticsearch ${ES_HOME}/bin/elasticsearch-plugin install \
+#       -Edefault.path.conf=/etc/elasticsearch \
+#       --batch file:///tmp/${XPACK_PACKAGE} \
+#  && gosu kibana ${KIBANA_HOME}/bin/kibana-plugin install \
+#       file:///tmp/${XPACK_PACKAGE} \
+#  && rm -f ${XPACK_PACKAGE}
+#
+# RUN sed -i -e 's/curl localhost:9200/curl -u elastic:changeme localhost:9200/' \
+#       -e 's/curl localhost:5601/curl -u kibana:paladin localhost:5601/' \
+#       /usr/local/bin/start.sh
+
+
+###############################################################################
+#                                   START
+###############################################################################
 
 EXPOSE 5601 9200 9300 5044 9600
 VOLUME /var/lib/elasticsearch

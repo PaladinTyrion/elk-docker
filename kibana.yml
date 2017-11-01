@@ -17,7 +17,7 @@ server.host: "0.0.0.0"
 #server.maxPayloadBytes: 1048576
 
 # The Kibana server's name.  This is used for display purposes.
-server.name: KBN_${HOSTNAME}
+#server.name: kibana
 
 # The URL of the Elasticsearch instance to use for all your queries.
 elasticsearch.url: "http://0.0.0.0:9200"
@@ -101,3 +101,18 @@ elasticsearch.startupTimeout: 10000
 # Set the interval in milliseconds to sample system and process performance
 # metrics. Minimum is 100ms. Defaults to 5000.
 #ops.interval: 5000
+# ------------ XPACK Settings --------------
+#
+# xpack.reporting.enabled: false
+# xpack.monitoring.elasticsearch.url: "http://0.0.0.0:9200"
+# elasticsearch.password: paladin
+#
+# session duration: Here we set half an hour.
+#
+# xpack.security.sessionTimeout: 1800000
+#
+# the cookie used for the session
+#
+# xpack.security.cookieName: "kibana_sid"
+#
+# elasticsearch.password: paladin

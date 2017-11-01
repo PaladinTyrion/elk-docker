@@ -138,7 +138,7 @@ queue.type: memory
 # whichever criteria is reached first
 # Default is 1024mb or 1gb
 #
-queue.max_bytes: 1024mb
+#queue.max_bytes: 1024mb
 #
 # If using queue.type: persisted, the maximum number of acked events before forcing a checkpoint
 # Default is 1024, 0 for unlimited

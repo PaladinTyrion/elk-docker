@@ -103,7 +103,7 @@ else
   # set number of retries (default: 30, override using ES_CONNECT_RETRY env var)
   re_is_numeric='^[0-9]+$'
   if ! [[ $ES_CONNECT_RETRY =~ $re_is_numeric ]] ; then
-     ES_CONNECT_RETRY=30
+     ES_CONNECT_RETRY=40
   fi
 
   counter=0
@@ -121,11 +121,11 @@ else
 
   # wait for cluster to respond before getting its name
   counter=0
-  while [ -z "$CLUSTER_NAME" -a $counter -lt 45 ]; do
+  while [ -z "$CLUSTER_NAME" -a $counter -lt 40 ]; do
     sleep 1
     ((counter++))
     CLUSTER_NAME=$(curl localhost:9200/_cat/health?h=cluster 2> /dev/null | tr -d '[:space:]')
-    echo "Waiting for Elasticsearch cluster to respond ($counter/45)"
+    echo "Waiting for Elasticsearch cluster to respond ($counter/40)"
   done
   if [ -z "$CLUSTER_NAME" ]; then
     echo "Couln't get name of cluster. Exiting."
@@ -133,6 +133,12 @@ else
     cat /var/log/elasticsearch/elasticsearch.log
     exit 1
   fi
+  # curl -XPUT -u elastic 'localhost:9200/_xpack/security/user/elastic/_password' -H "Content-Type: application/json" -d '{
+  #   "password" : “paladin"
+  # }'
+  # curl -XPUT -u elastic 'localhost:9200/_xpack/security/user/kibana/_password' -H "Content-Type: application/json" -d '{
+  #   "password" : "paladin"
+  # }'
   # OUTPUT_LOGFILES+="/var/log/elasticsearch/${CLUSTER_NAME}.log "
 fi
 
