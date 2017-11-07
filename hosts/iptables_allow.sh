@@ -36,16 +36,15 @@ fi
 
 # add new ACCEPT rules
 ips=$1
-echo "允许5601的ip地址为:" $1
+echo "允许5601的ip地址为:" $ips
 
 echo "#控制端口" >> $ipta_file
 oldIFS="$IFS"
 #自定义分隔符
 IFS=","
-for item in $ips;
+for ip in $ips;
 do
-    echo $item
-    echo "-A INPUT -s $item -p tcp --dport 5601 -j ACCEPT" >> $ipta_file
+    echo "-A INPUT -s $ip -p tcp --dport 5601 -j ACCEPT" >> $ipta_file
 done
 IFS="$oldIFS"
 echo "-A INPUT -p tcp --dport 5601 -j DROP" >> $ipta_file
