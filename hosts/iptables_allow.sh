@@ -35,14 +35,14 @@ if [ ${#del_arr[@]} -ne 0 ];then
 fi
 
 # add new ACCEPT rules
-ip=$1
+ips=$1
 echo "允许5601的ip地址为:" $1
 
 echo "#控制端口" >> $ipta_file
 oldIFS="$IFS"
 #自定义分隔符
 IFS=","
-for item in $ip;
+for item in $ips;
 do
     echo $item
     echo "-A INPUT -s $item -p tcp --dport 5601 -j ACCEPT" >> $ipta_file
