@@ -122,7 +122,7 @@ thread_pool:
     generic:
         keep_alive: 2m
     index:
-        size: 12
+        size: 16
         queue_size: 1000
     warmer:
         max: 8
