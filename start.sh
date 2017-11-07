@@ -10,7 +10,6 @@
 #   Do not attempt to run this script if the ELK services are running (or be
 #   prepared to reap zombie processes).
 
-
 ## handle termination gracefully
 
 _term() {
@@ -35,6 +34,8 @@ rm -f /var/run/elasticsearch/elasticsearch.pid /var/run/logstash.pid \
 ## initialise list of log files to stream in console (initially empty)
 OUTPUT_LOGFILES=""
 
+# modify configuration
+/usr/local/bin/replace_ips.sh
 
 ## override default time zone (Etc/UTC) if TZ variable is set
 if [ ! -z "$TZ" ]; then

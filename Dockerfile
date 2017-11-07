@@ -163,8 +163,10 @@ ADD ./kibana.yml ${KIBANA_HOME}/config/kibana.yml
 #                               PREPARE START
 ###############################################################################
 
+ADD ./replace_ips.sh /usr/local/bin/replace_ips.sh
 ADD ./start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/replace_ips.sh && \
+  chmod +x /usr/local/bin/start.sh
 
 
 ###############################################################################

@@ -79,9 +79,9 @@ http.max_content_length: 100mb
 #
 # gateway.recover_after_nodes: 3
 #
-gateway.recover_after_nodes: 3
+gateway.recover_after_nodes: 1
 gateway.recover_after_time: 5m
-gateway.expected_nodes: 5
+gateway.expected_nodes: 1
 # For more information, see the documentation at:
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html>
 #
@@ -94,11 +94,11 @@ gateway.expected_nodes: 5
 #
 # discovery.zen.ping.unicast.hosts: ["host1", "host2"]
 #
-discovery.zen.ping.unicast.hosts: ["10.85.10.10:9300", "10.85.10.12:9300", "10.85.10.3:9300", "10.85.92.8:9300", "10.85.92.7:9300"]
+discovery.zen.ping.unicast.hosts: ["0.0.0.0:9300"]
 # Prevent the "split brain" by configuring the majority of nodes (total number of nodes / 2 + 1):
 #
 # discovery.zen.minimum_master_nodes: 3
-discovery.zen.minimum_master_nodes: 3
+discovery.zen.minimum_master_nodes: 1
 discovery.zen.ping_timeout: 20s
 discovery.zen.fd.ping_timeout: 20s
 #
