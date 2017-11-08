@@ -14,25 +14,6 @@ yum install -y net-tools nfs-utils rpcbind
 service rpcbind start
 service nfs start
 
-# get local_ip
-local_ip=`/sbin/ifconfig -a | grep inet | grep -v 127.0.0.1 | grep -v inet6 | awk '{print $2}' | tr -d "addr:" | head -n 1`
-
-### get all client_ips
-oldIFS="$IFS"
-# 自定义分隔符
-IFS=","
-for client_ip in $ips;
-do
-    mkdir -p /data2/${client_ip}.kafka
-    mkdir -p /data2/${client_ip}.elk
-    mkdir -p /data2/${client_ip}.elk/elasticsearch
-    mkdir -p /data2/${client_ip}.elk/logstash
-    mkdir -p /data2/${client_ip}.elk/kibana
-    chmod -R +x /data2/${client_ip}.elk
-done
-IFS="$oldIFS"
-### use client_ips ends
-
 
 ### create groups && users
 # create elasticsearch user
@@ -58,10 +39,29 @@ then
 fi
 
 
-# chown groups && users
-chown -R elasticsearch:elasticsearch /data2/${client_ip}.elk/elasticsearch
-chown -R logstash:logstash /data2/${client_ip}.elk/logstash
-chown -R kibana:kibana /data2/${client_ip}.elk/kibana
+# get local_ip
+local_ip=`/sbin/ifconfig -a | grep inet | grep -v 127.0.0.1 | grep -v inet6 | awk '{print $2}' | tr -d "addr:" | head -n 1`
+
+ips="$1"
+### get all client_ips
+oldIFS="$IFS"
+# 自定义分隔符
+IFS=","
+for client_ip in $ips;
+do
+    mkdir -p /data2/${client_ip}.kafka
+    mkdir -p /data2/${client_ip}.elk
+    mkdir -p /data2/${client_ip}.elk/elasticsearch
+    mkdir -p /data2/${client_ip}.elk/logstash
+    mkdir -p /data2/${client_ip}.elk/kibana
+    chmod -R +x /data2/${client_ip}.elk
+    # chown groups && users
+    chown -R elasticsearch:elasticsearch /data2/${client_ip}.elk/elasticsearch
+    chown -R logstash:logstash /data2/${client_ip}.elk/logstash
+    chown -R kibana:kibana /data2/${client_ip}.elk/kibana
+done
+IFS="$oldIFS"
+### use client_ips ends
 
 
 # exportfs
