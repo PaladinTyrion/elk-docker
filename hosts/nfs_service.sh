@@ -11,11 +11,18 @@ fi
 
 # install ifconfig nfs-client
 yum install -y net-tools nfs-utils rpcbind
-service rpcbind start
-service nfs start
+service rpcbind restart
+service nfs restart
 
 
 ### create groups && users
+# create kafka user
+id "kafka" >& /dev/null
+if [ $? -ne 0 ]
+then
+    groupadd -r kafka -g 440
+    useradd -r -s /sbin/nologin -M -c "Kafka service user" -u 440 -g kafka kafka
+fi
 # create elasticsearch user
 id "elasticsearch" >& /dev/null
 if [ $? -ne 0 ]
@@ -50,12 +57,16 @@ IFS=","
 for client_ip in $ips;
 do
     mkdir -p /data2/${client_ip}.kafka
+    mkdir -p /data2/${client_ip}.kafka/kafka-logs
+    mkdir -p /data2/${client_ip}.kafka/kafka-runlog
     mkdir -p /data2/${client_ip}.elk
     mkdir -p /data2/${client_ip}.elk/elasticsearch
     mkdir -p /data2/${client_ip}.elk/logstash
     mkdir -p /data2/${client_ip}.elk/kibana
+    chmod -R +x /data2/${client_ip}.kafka
     chmod -R +x /data2/${client_ip}.elk
     # chown groups && users
+    chown -R kafka:kafka /data2/${client_ip}.kafka
     chown -R elasticsearch:elasticsearch /data2/${client_ip}.elk/elasticsearch
     chown -R logstash:logstash /data2/${client_ip}.elk/logstash
     chown -R kibana:kibana /data2/${client_ip}.elk/kibana
@@ -70,7 +81,7 @@ oldIFS="$IFS"
 IFS=","
 for client_ip in $ips;
 do
-    echo "/data2/${client_ip}.kafka ${client_ip}(rw,sync,no_root_squash,no_subtree_check)" >> /etc/exports
+    echo "/data2/${client_ip}.kafka ${client_ip}(rw,sync,all_squash,anonuid=440,anongid=440,no_subtree_check)" >> /etc/exports
     echo "/data2/${client_ip}.elk/elasticsearch ${client_ip}(rw,sync,all_squash,anonuid=441,anongid=441,no_subtree_check)" >> /etc/exports
     echo "/data2/${client_ip}.elk/logstash ${client_ip}(rw,sync,all_squash,anonuid=442,anongid=442,no_subtree_check)" >> /etc/exports
     echo "/data2/${client_ip}.elk/kibana ${client_ip}(rw,sync,all_squash,anonuid=443,anongid=443,no_subtree_check)" >> /etc/exports

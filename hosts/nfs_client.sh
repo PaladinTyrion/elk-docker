@@ -2,17 +2,27 @@
 
 # install ifconfig nfs-client
 yum install -y net-tools nfs-utils rpcbind
-service rpcbind start
-service nfs start
+service rpcbind restart
+service nfs restart
+service nfslock restart
 
 # create dir
 mkdir -p /data0/kafka
+chown -R kafka:kafka /data0/kafka
 mkdir -p /data0/elk/elasticsearch
 mkdir -p /data0/elk/logstash
 mkdir -p /data0/elk/kibana
+chmod -R +x /data0/kafka
 chmod -R +x /data0/elk
 
 ### create groups && users
+# create kafka user
+id "kafka" >& /dev/null
+if [ $? -ne 0 ]
+then
+    groupadd -r kafka -g 440
+    useradd -r -s /sbin/nologin -M -c "Kafka service user" -u 440 -g kafka kafka
+fi
 # create elasticsearch user
 id "elasticsearch" >& /dev/null
 if [ $? -ne 0 ]
@@ -35,6 +45,7 @@ then
     useradd -r -s /usr/sbin/nologin -c "Kibana service user" -u 443 -g kibana kibana
 fi
 # chown groups && users
+chown -R kafka:kafka /data0/kafka
 chown -R elasticsearch:elasticsearch /data0/elk/elasticsearch
 chown -R logstash:logstash /data0/elk/logstash
 chown -R kibana:kibana /data0/elk/kibana
