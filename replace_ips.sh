@@ -80,7 +80,7 @@ if [ ${#es_arr[@]} -gt 0 ]; then
   # replace logstash elasticsearch output
   sed -i -e "s/hosts =>.*$/hosts => $es_ips_res/g" $es_out_file
   # replace elasticsearch configure *.yml unicast.hosts
-  sed -i -e "s/discovery.zen.ping.unicast.hosts:.*$/discovery.zen.ping.unicast.hosts: $es_tcp_ips_res/g" $es_conf_file
+  sed -i -e "s/^discovery.zen.ping.unicast.hosts:.*$/discovery.zen.ping.unicast.hosts: $es_tcp_ips_res/g" $es_conf_file
   # replace elasticsearch configure *.yml min runs
   sed -i -e "s/^gateway.recover_after_nodes:.*$/gateway.recover_after_nodes: $es_cluster_min/g" $es_conf_file
   sed -i -e "s/^discovery.zen.minimum_master_nodes:.*$/discovery.zen.minimum_master_nodes: $es_cluster_min/g" $es_conf_file
