@@ -8,7 +8,6 @@ service nfslock restart
 
 # create dir
 mkdir -p /data0/kafka
-chown -R kafka:kafka /data0/kafka
 mkdir -p /data0/elk/elasticsearch
 mkdir -p /data0/elk/logstash
 mkdir -p /data0/elk/kibana
