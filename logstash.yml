@@ -43,7 +43,7 @@ pipeline.output.workers: 2
 #
 # How many events to retrieve from inputs before sending to filters+workers
 #
-pipeline.batch.size: 3000
+pipeline.batch.size: 1500
 #
 # How long to wait before dispatching an undersized batch to filters+workers
 # Value is in milliseconds.
@@ -79,7 +79,7 @@ config.reload.automatic: false
 #
 # How often to check if the pipeline configuration has changed (in seconds)
 #
-config.reload.interval: 30
+config.reload.interval: 60
 #
 # Show fully compiled configuration as debug log message
 # NOTE: --log.level must be 'debug'

@@ -32,6 +32,7 @@ es_out_file="/etc/logstash/conf.d/30-output.conf"
 # echo "需要替换的es_out_file为:" $es_out_file
 es_conf_file="/etc/elasticsearch/elasticsearch.yml"
 # echo "需要替换的es_conf_file为:" $es_conf_file
+host_name=`hostname`
 
 if [ ! -z "$ES_IPS" ]; then
   es_ips="$ES_IPS"
@@ -39,6 +40,10 @@ fi
 
 if [ ! -z "$KAFKA_IPS" ]; then
   kafka_ips="$KAFKA_IPS"
+fi
+
+if [ ! -z "$GROUP_ID" ]; then
+  client_id="$GROUP_ID"
 fi
 
 ##### replace starts
@@ -87,3 +92,8 @@ if [ ${#es_arr[@]} -gt 0 ]; then
   # replace elasticsearch configure *.yml expected nodes
   sed -i -e "s/^gateway.expected_nodes:.*$/gateway.expected_nodes: $es_cluster_expect/g" $es_conf_file
 fi
+
+# control other param of logstash configure
+# kafka-input
+sed -i -e "s/client_id =>.*$/client_id => $hostname/g" $kafka_input_file
+sed -i -e "s/group_id =>.*$/group_id => $group_id/g" $kafka_input_file

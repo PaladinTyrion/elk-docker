@@ -118,7 +118,7 @@ node.max_local_storage_nodes: 1
 action.destructive_requires_name: true
 
 # index
-# 
+#
 # index.number_of_shards: 1
 # index.refresh_interval: 10s
 # index.max_result_window: 10000
@@ -141,7 +141,7 @@ thread_pool:
         max: 8
     search:
         size: 16
-        queue_size: 4000
+        queue_size: 3000
     flush:
         max: 8
     listener:
