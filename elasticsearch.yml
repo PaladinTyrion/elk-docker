@@ -69,7 +69,7 @@ network.host: 0.0.0.0
 http.port: 9200
 transport.tcp.port: 9300
 transport.tcp.compress: true
-http.max_content_length: 100mb
+http.max_content_length: 150mb
 # For more information, see the documentation at:
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-network.html>
 #
@@ -117,20 +117,32 @@ node.max_local_storage_nodes: 1
 # action.destructive_requires_name: true
 action.destructive_requires_name: true
 
+# index
+#index.number_of_shards: 1
+index.refresh_interval: 10s
+index.max_result_window: 10000
+index.max_rescore_window: 10000
+index.translog.flush_threshold_size: 512mb
+index.translog.sync_interval: 20s
+indices.fielddata.cache.size: 30%
+
 #thread_pool
 thread_pool:
     generic:
         keep_alive: 2m
     index:
+        size: 12
+        queue_size: 3000
+    bulk:
         size: 8
-        queue_size: 2000
+        queue_size: 3000
     warmer:
         max: 8
     search:
         size: 16
-        queue_size: 2000
+        queue_size: 4000
     flush:
-        max: 5
+        max: 8
     listener:
         size: 5
     refresh:
