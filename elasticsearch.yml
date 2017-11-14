@@ -118,20 +118,21 @@ node.max_local_storage_nodes: 1
 action.destructive_requires_name: true
 
 # index
-#index.number_of_shards: 1
-index.refresh_interval: 10s
-index.max_result_window: 10000
-index.max_rescore_window: 10000
-index.translog.flush_threshold_size: 512mb
-index.translog.sync_interval: 20s
-indices.fielddata.cache.size: 30%
+# 
+# index.number_of_shards: 1
+# index.refresh_interval: 10s
+# index.max_result_window: 10000
+# index.max_rescore_window: 10000
+# index.translog.flush_threshold_size: 512mb
+# index.translog.sync_interval: 20s
+# indices.fielddata.cache.size: 30%
 
 #thread_pool
 thread_pool:
     generic:
         keep_alive: 2m
     index:
-        size: 12
+        size: 9
         queue_size: 3000
     bulk:
         size: 8

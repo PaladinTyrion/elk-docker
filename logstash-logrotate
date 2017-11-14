@@ -2,8 +2,6 @@
     daily
     rotate 5
     copytruncate
-    compress
-    delaycompress
     missingok
     notifempty
 }
