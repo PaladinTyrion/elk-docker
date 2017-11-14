@@ -43,7 +43,7 @@ if [ ! -z "$KAFKA_IPS" ]; then
 fi
 
 if [ ! -z "$GROUP_ID" ]; then
-  client_id="$GROUP_ID"
+  group_id="$GROUP_ID"
 fi
 
 ##### replace starts
@@ -95,5 +95,5 @@ fi
 
 # control other param of logstash configure
 # kafka-input
-sed -i -e "s/client_id =>.*$/client_id => $hostname/g" $kafka_input_file
-sed -i -e "s/group_id =>.*$/group_id => $group_id/g" $kafka_input_file
+sed -i -e "s/client_id =>.*$/client_id => \"$host_name\"/g" $kafka_input_file
+sed -i -e "s/group_id =>.*$/group_id => \"$group_id\"/g" $kafka_input_file
