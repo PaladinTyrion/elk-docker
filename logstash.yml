@@ -38,11 +38,11 @@ path.data: /var/lib/logstash
 #
 # How many workers should be used per output plugin instance
 #
-pipeline.output.workers: 2
+pipeline.output.workers: 6
 #
 # How many events to retrieve from inputs before sending to filters+workers
 #
-pipeline.batch.size: 125
+pipeline.batch.size: 3000
 #
 # How long to wait before dispatching an undersized batch to filters+workers
 # Value is in milliseconds.
