@@ -67,7 +67,7 @@ start() {
     cd $LS_HOME
     ulimit -n ${LS_OPEN_FILES}
     exec \"$program\" $args
-  " > "${LS_LOG_DIR}/$name.stdout" 2> "${LS_LOG_DIR}/$name.err" &
+  " > "${LS_LOG_DIR}/$name.stdout" &
 
   # Generate the pidfile from here. If we instead made the forked process
   # generate it there will be a race condition between the pidfile writing
