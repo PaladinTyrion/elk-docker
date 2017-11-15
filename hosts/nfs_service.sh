@@ -72,9 +72,6 @@ do
     chown -R kibana:kibana /data2/${client_ip}.elk/kibana
 done
 IFS="$oldIFS"
-mkdir -p /data2/logstashconf
-chmod +x /data2/logstashconf
-chmod -R +r /data2/logstashconf
 ### use client_ips ends
 
 
@@ -90,7 +87,6 @@ do
     echo "/data2/${client_ip}.elk/kibana ${client_ip}(rw,sync,all_squash,anonuid=443,anongid=443,no_subtree_check)" >> /etc/exports
 done
 IFS="$oldIFS"
-echo "/data2/logstashconf *(ro,sync,no_root_squash,no_subtree_check)" >> /etc/exports
 
 # 生效nfs-service
 exportfs -arv
