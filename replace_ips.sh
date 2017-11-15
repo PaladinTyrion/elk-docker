@@ -95,5 +95,5 @@ fi
 
 # control other param of logstash configure
 # kafka-input
-sed -i -e "s/client_id =>.*$/client_id => \"$host_name\"/g" $kafka_input_file
+sed -i -e "s/client_id =>.*$/client_id => \"ci-$host_name\"/g" $kafka_input_file
 sed -i -e "s/group_id =>.*$/group_id => \"$group_id\"/g" $kafka_input_file
