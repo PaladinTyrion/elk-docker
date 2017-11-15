@@ -161,5 +161,4 @@ thread_pool:
 # xpack.watcher.enabled: false
 
 # test feature
-# action.auto_create_index: .security,.monitoring*,.ml*,datalogging-*,servlogging-*
-action.auto_create_index: datalogging-*,servlogging-*
+action.auto_create_index: true
