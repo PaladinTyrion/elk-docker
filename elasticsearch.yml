@@ -159,6 +159,3 @@ thread_pool:
 # xpack.monitoring.enabled: true
 # xpack.monitoring.history.duration: 5d
 # xpack.watcher.enabled: false
-
-# test feature
-action.auto_create_index: true
