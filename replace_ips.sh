@@ -76,10 +76,10 @@ IFS="$oldIFS"
 
 
 ##### modify the all configure
-# if [ ${#kafka_arr[@]} -gt 0 ]; then
-#   # replace logstash kafka input
-#   sed -i -e "s/bootstrap_servers =>.*$/bootstrap_servers => $kafka_ips_res/g" $kafka_input_file
-# fi
+if [ ${#kafka_arr[@]} -gt 0 ]; then
+  # replace logstash kafka input
+  sed -i -e "s/bootstrap_servers =>.*$/bootstrap_servers => $kafka_ips_res/g" $kafka_input_file
+fi
 
 if [ ${#es_arr[@]} -gt 0 ]; then
   # replace logstash elasticsearch output
