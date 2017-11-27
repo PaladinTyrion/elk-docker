@@ -123,7 +123,7 @@ RUN mkdir -p /tmp/elasticsearch && chown -R elasticsearch:elasticsearch /tmp/ela
 
 ADD ./elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 ADD ./elasticsearch-log4j2.properties /etc/elasticsearch/log4j2.properties
-ADD ./elasticsearch-jvm.options /etc/elasticsearch/jvm.options
+ADD ./elasticsearch-jvm.options /opt/elasticsearch/config/jvm.options
 ADD ./elasticsearch-default /etc/default/elasticsearch
 RUN chmod -R +r /etc/elasticsearch
 

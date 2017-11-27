@@ -5,6 +5,7 @@
 
 -Xms4g
 -Xmx4g
+-Xss32m
 
 ################################################################
 ## Expert settings
@@ -17,10 +18,12 @@
 ################################################################
 
 ## GC configuration
--XX:+UseParNewGC
--XX:+UseConcMarkSweepGC
--XX:CMSInitiatingOccupancyFraction=75
--XX:+UseCMSInitiatingOccupancyOnly
+#-XX:+UseParNewGC
+#-XX:+UseConcMarkSweepGC
+#-XX:CMSInitiatingOccupancyFraction=75
+#-XX:+UseCMSInitiatingOccupancyOnly
+-XX:+UseG1GC
+-XX:MaxGCPauseMillis=300
 
 ## optimizations
 
