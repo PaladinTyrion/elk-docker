@@ -117,6 +117,9 @@ case "$1" in
             exit 0
         fi
 
+        # swapoff -a
+        sysctl -q -w vm.swappiness=1
+
         # Ensure that the PID_DIR exists (it is cleaned at OS startup time)
         if [ -n "$PID_DIR" ] && [ ! -e "$PID_DIR" ]; then
             mkdir -p "$PID_DIR" && chown "$ES_USER":"$ES_GROUP" "$PID_DIR"

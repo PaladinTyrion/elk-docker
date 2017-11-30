@@ -30,6 +30,7 @@ cluster.name: yzb-logging
 node.name: ES_${HOSTNAME}
 node.master: true
 node.data: true
+node.ingest: true
 # ----------------------------------- Paths ------------------------------------
 #
 # Path to directory where to store the data (separate multiple locations by comma):
@@ -69,7 +70,11 @@ network.host: 0.0.0.0
 http.port: 9200
 transport.tcp.port: 9300
 transport.tcp.compress: true
-http.max_content_length: 150mb
+http.compression_level: 3
+http.max_content_length: 200mb
+http.cors.enabled: false
+http.pipelining: true
+http.pipelining.max_events: 12000
 # For more information, see the documentation at:
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-network.html>
 #
@@ -79,9 +84,13 @@ http.max_content_length: 150mb
 #
 # gateway.recover_after_nodes: 3
 #
-gateway.recover_after_nodes: 1
-gateway.recover_after_time: 5m
 gateway.expected_nodes: 1
+gateway.expected_master_nodes: 1
+gateway.expected_data_nodes: 1
+gateway.recover_after_time: 5m
+gateway.recover_after_master_nodes: 1
+gateway.recover_after_nodes: 1
+gateway.recover_after_data_nodes: 1
 # For more information, see the documentation at:
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html>
 #
@@ -132,22 +141,22 @@ thread_pool:
     generic:
         keep_alive: 2m
     index:
-        size: 9
-        queue_size: 3000
+        size: 16
+        queue_size: 2000
     bulk:
         size: 8
-        queue_size: 3000
-    warmer:
-        max: 8
+        queue_size: 200
     search:
-        size: 16
-        queue_size: 3000
-    flush:
-        max: 8
+        size: 12
+        queue_size: 1000
+    warmer:
+        max: 5
+    snapshot:
+        max: 5
     listener:
-        size: 5
+        max: 12
     refresh:
-        max: 3
+        max: 16
 
 # start elasticsearch with XPACK feature
 #
