@@ -154,7 +154,7 @@ thread_pool:
     snapshot:
         max: 5
     listener:
-        max: 12
+        size: 12
     refresh:
         max: 16
 
